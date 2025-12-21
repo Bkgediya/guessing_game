@@ -221,8 +221,43 @@ fn main() {
     let score: &mut u32 =  hashmap.entry("yello".to_string()).or_insert(0);
     *score += 100;
 
-    println!("value of the yello is {:?}",score)   
+    println!("value of the yello is {:?}",score)  ;
 
+    let x = 1;
+    match x {
+        1 | 5 | 6 => println!("one or five or six"),
+        2 => println!("two"),
+        3 => println!("three"),
+        _ => println!("Some other value")
+    }
 
+    let x = 100;
+    match x {
+        1..=10 => println!("1 to 10"),
+        _ => println!("Match not found")
+    }
+
+    // how to know which value match
+    match x {
+        i @ 1..=150 => println!("match value from 1 to 150 is {}",i),
+        _ => println!("No match found")
+    }
+
+    let x :Option<i32> = Some(9);
+    match x {
+        Some(val) => println!("Optinal value {val}"),
+        None => println!("none")
+    }
+
+    let res : Result<i32,String> = Ok(123);
+    match res {
+        Ok(val) => println!("{val}"),
+        Err(err) => println!("The error occure {err}")
+    }
+    let z : i32 = match x {
+         Some(val) => val,
+        None => 0
+    };
+    println!("return from the match is {z}")
 
 }
