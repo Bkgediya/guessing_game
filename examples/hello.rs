@@ -1,7 +1,8 @@
 
 #![allow(unused)]
 
-use std::f32::MIN;
+use core::hash;
+use std::{collections::HashMap, f32::MIN, vec};
 
 const PI : f32 = 3.14;
 fn main() {
@@ -180,5 +181,48 @@ fn main() {
     // Update
     let mut p = Point{x:1,y:1};
     p.x += 1;
-    println!("updated p {:#?}",p) 
+    println!("updated p {:#?}",p);
+
+    // vector
+    let mut v : Vec<i32> = Vec::new();
+    v.push(1);
+    v.push(2);
+
+    println!("Vector values are {:?}",v);
+
+    let v : Vec<i8>= vec![1,2,3];
+
+    let v : Vec<i8> = vec![0i8;5];
+    // access element
+    println!("element at index 0 is {}",v[0]);
+    println!("Value of the vector micro are {:?}",v);
+
+    // optional chain if array if outof index it will not panic
+    let value: Option<&i8> = v.get(1000);
+    println!("value of optional is {:?}",value);
+
+
+    // slice from vector
+    let v = vec![1,2,3,4,5,6];
+    let sv = &v[1..4];
+
+    println!("The slicing value is {:?}",sv);
+
+    // hashmap
+    let mut hashmap: HashMap<String,u32> = HashMap::new();
+    hashmap.insert("red".to_string(), 100);
+    hashmap.insert("violent".to_string(), 200);
+
+    println!("Values of the hashmap {:?}",hashmap);
+
+    //get
+    let score:Option<&u32> = hashmap.get("red");
+    // update
+    let score: &mut u32 =  hashmap.entry("yello".to_string()).or_insert(0);
+    *score += 100;
+
+    println!("value of the yello is {:?}",score)   
+
+
+
 }
