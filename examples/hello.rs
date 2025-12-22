@@ -258,6 +258,14 @@ fn main() {
          Some(val) => val,
         None => 0
     };
-    println!("return from the match is {z}")
+    println!("return from the match is {z}");
+
+    // if let statement
+    if let Some(val) = x {
+        println!("Option is {val}");
+    }
+
+    
+    
 
 }
