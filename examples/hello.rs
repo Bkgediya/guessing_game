@@ -4,6 +4,31 @@
 use core::hash;
 use std::{collections::HashMap, f32::MIN, vec};
 
+
+mod my {
+    pub fn print() {
+        println!("Hello rust");
+    }
+
+    fn private_print() {
+        a::print();
+        println!("The private print");
+    }
+
+    pub mod a {
+        pub fn print() {
+           
+            println!("A private strings")
+        }
+
+        #[derive(Debug)]
+        pub struct ain {
+             pub name: String,
+             pub id: u32
+        }
+    }
+}
+
 const PI : f32 = 3.14;
 fn main() {
     let mut x = 1;
@@ -265,7 +290,11 @@ fn main() {
         println!("Option is {val}");
     }
 
-    
-    
+    my::print();
+    my::a::print();
+
+    let x = my::a::ain{name:"tom".to_string(),id:100};
+
+    println!("{:?}",x)
 
 }
