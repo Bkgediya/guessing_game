@@ -1,10 +1,7 @@
 
 #![allow(unused)]
-
 use core::hash;
 use std::{collections::HashMap, f32::MIN, vec};
-
-
 mod my {
     pub fn print() {
         println!("Hello rust");
@@ -17,7 +14,6 @@ mod my {
 
     pub mod a {
         pub fn print() {
-           
             println!("A private strings")
         }
 
@@ -29,8 +25,32 @@ mod my {
     }
 }
 
+#[derive(Debug)]
+struct Cordinates {
+    x:i32,
+    y:i32
+}
+
+impl Cordinates {
+    // static method
+    fn new(x:i32,y:i32) -> Self {
+        Self{x,y}
+    }
+    // method
+    fn move_to(&mut self,x:i32,y:i32) {
+        self.x = x;
+        self.y = y;
+    }
+
+}
 const PI : f32 = 3.14;
 fn main() {
+
+    let mut cordinates = Cordinates{x:1,y:2};
+    // let mut cordinates = Cordinates::new(2, 1);
+    println!("{:?}",cordinates);
+
+
     let mut x = 1;
     x += 1;
 
