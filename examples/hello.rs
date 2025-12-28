@@ -44,7 +44,92 @@ impl Cordinates {
 
 }
 const PI : f32 = 3.14;
+
+// Generic traits
+trait List <T>{
+    fn count(&self) -> usize;
+    fn first(&self) -> &T;
+}
+
+impl List<u32> for (u32,bool,char) {
+    fn count(&self) -> usize {
+        3   
+    }
+    
+    fn first(&self) -> &u32 {
+        &self.0
+    }
+}
+
+impl<T> List<T> for Vec<T> {
+    fn count(&self) -> usize {
+        self.len()   
+    }
+    
+    fn first(&self) -> &T {
+        &self[0]
+    }
+}
+
+
+// trait bound
+fn max<T: PartialOrd>(x:T,y:T) -> T {
+    if x <= y {
+        y
+    } else {
+        x
+    }
+}
+
+trait A {}
+trait B{}
+trait C{}
+
+impl A for u32 {}
+impl B for u32 {}
+impl C for i32 {}
+
+fn a<T:A>(x:T) {
+}
+
+fn ab<T: A + B> (x:T) {}
+
+fn w<T,U>(x:T,y:U) 
+where
+    T: A + B,
+    U: B + C
+{}
+
+
+// lifetimes
+// 'a = “both inputs live at least as long as the output”
+fn longest<'a>(a: &'a str, b:&'a str) -> &'a str {
+    if a.len() > b.len() {
+        a
+    } else {
+        b
+    }
+}
+
+struct User<'a> {
+    name: &'a str
+}
+
 fn main() {
+    let u :u32 = 1;
+    a(u);
+    ab(u);
+
+    let t = (1u32,true,'c');
+    let count = t.count();
+    println!("count is {count}");
+
+    let v : Vec<u32> = vec![1,2,3,4];
+    let count = v.count();
+    let first = v.first();
+    println!("And the first element is {first}");
+    println!("count of vector is {count}");
+
 
     let mut cordinates = Cordinates{x:1,y:2};
     // let mut cordinates = Cordinates::new(2, 1);
@@ -315,6 +400,26 @@ fn main() {
 
     let x = my::a::ain{name:"tom".to_string(),id:100};
 
-    println!("{:?}",x)
+    println!("{:?}",x);
+
+    let v: Vec<u32> = vec![1,2,3,4,5];
+    let v2:Vec<u32> =  v.iter().map(|x:&u32| x+1).collect();
+
+    println!("{:?}",v2);
+
+    let v:Vec<(&str,u32)> = vec![("a",1),("b",2),("c",3)];
+    let v3: Vec<(String,u32)> = v.iter().map(|x| (x.0.to_string(),x.1+1)).collect(); 
+
+    println!("{:?}",v3);
+
+    // change collection type
+    let hashmap : HashMap<String,u32> = v.iter().map(|v| (v.0.to_string(),v.1)).collect();
+
+    println!("{:?}",hashmap);
+
+    // chaining filter and map
+    let v: Vec<u32> = vec![1,2,3,4,5];
+    let v1: Vec<u32> = v.iter().filter(|x| **x <= 3).map(|x| x + 1).collect();
+    println!("{:?}",v1)
 
 }
